@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\GBReaderStefkoS.Domains\GBReaderStefkoS.Domains.csproj" />
+      <ProjectReference Include="..\GBReaderStefkoS.Infrastructures\GBReaderStefkoS.Infrastructures.csproj" />
+      <ProjectReference Include="..\GBReaderStefkoS.Repositories\GBReaderStefkoS.Repositories.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="AddBookPresenter.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Avalonia" Version="0.10.18" />
+    </ItemGroup>
+
+</Project>

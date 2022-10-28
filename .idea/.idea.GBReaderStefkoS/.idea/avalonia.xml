@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="GBReaderStefkoS.Avalonia/AddBookUC.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
+        <entry key="GBReaderStefkoS.Avalonia/AllBookUC.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
+        <entry key="GBReaderStefkoS.Avalonia/AllBooksUC.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
+        <entry key="GBReaderStefkoS.Avalonia/App.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
+        <entry key="GBReaderStefkoS.Avalonia/BookDataUC.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
+        <entry key="GBReaderStefkoS.Avalonia/BookItemUC.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
+        <entry key="GBReaderStefkoS.Avalonia/ListView.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
+        <entry key="GBReaderStefkoS.Avalonia/MainWindow.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

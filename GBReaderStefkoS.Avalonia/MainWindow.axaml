@@ -1,0 +1,20 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="GBReaderStefkoS.Avalonia.MainWindow"
+        Title="GBReaderStefkoS.Avalonia">
+    <ScrollViewer>
+        <StackPanel x:Name="MainPanel">
+            <TextBlock TextAlignment="Center" FontSize="40">GameBook Stefko Stevy</TextBlock>
+            <StackPanel x:Name="ActualPanel">
+                
+            </StackPanel>
+            <!--<TextBox Watermark="Rechercehr"></TextBox>
+            <StackPanel x:Name="AllBooks" HorizontalAlignment="Center">
+            
+            </StackPanel>-->
+        </StackPanel>
+    </ScrollViewer>
+</Window>
