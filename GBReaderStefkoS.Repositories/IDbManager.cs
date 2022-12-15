@@ -2,12 +2,24 @@ using GBReaderStefkoS.Domains;
 
 namespace GBReaderStefkoS.Repositories
 {
+    /**
+     * Interface for the DbManager
+     */
     public interface IDbManager : IDisposable
     {
-        IEnumerable<Book> GetBooks();
+        /**
+         * return all the books published in the database
+         */
+        IEnumerable<Book>? GetBooks();
         
-        IList<Page> GetPagesFromBook(Book bookSelected);
+        /**
+         * return all the pages of the book
+         */
+        IList<Page> GetPagesFromBook(Book? bookSelected);
         
-        void SetChoicesToPage(Book book, Page page);
+        /**
+         * get the choice for the page
+         */
+        IList<Choice> SetChoicesToPage(Book? book, Page page);
     }
 }

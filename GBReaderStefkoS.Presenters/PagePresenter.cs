@@ -11,7 +11,7 @@ namespace GBReaderStefkoS.Presenters
         private readonly IPageView _view;
         private readonly ISwitchContent _router;
         private readonly IDbFactory _factory;
-        private Book _actualBook;
+        private Book? _actualBook;
         
         public PagePresenter(IPageView view, ISwitchContent router, IDbFactory factory, AllBooksPresenter allBooksPresenter)
         {
@@ -25,7 +25,7 @@ namespace GBReaderStefkoS.Presenters
             _view.QuitRequested += GoToAllBooksView;
         }
         
-        private void StartReadingBook(object sender, BookEventArg arg)
+        private void StartReadingBook(object? sender, BookEventArg arg)
         {
             _actualBook = arg.Book;
             
@@ -40,7 +40,7 @@ namespace GBReaderStefkoS.Presenters
             SetDataToPage(page);
         }
 
-        private void GoToFirstPage(object sender, EventArgs arg) => GoToFirstPage();
+        private void GoToFirstPage(object? sender, EventArgs arg) => GoToFirstPage();
 
         private void SwitchPage(object? sender, PageEventArg arg)
         {

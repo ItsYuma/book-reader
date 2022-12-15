@@ -14,5 +14,7 @@
       <PackageReference Include="MySql.Data" Version="8.0.31" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta2" />
     </ItemGroup>
-
+    <ItemGroup>
+        <AdditionalFiles Include="../CodeMetricsConfig.txt" />
+    </ItemGroup>
 </Project>

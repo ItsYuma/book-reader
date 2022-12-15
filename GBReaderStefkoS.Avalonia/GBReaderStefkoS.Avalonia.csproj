@@ -29,5 +29,13 @@
     </ItemGroup>
     <ItemGroup>
       <Compile Remove="UserControls\BookUserControl.cs" />
+      <Compile Remove="AddBookUC.axaml.cs" />
+      <Compile Remove="AllBooksUC.axaml.cs" />
+      <Compile Remove="BookDataUC.axaml.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <AvaloniaXaml Remove="AddBookUC.axaml" />
+      <AvaloniaXaml Remove="AllBooksUC.axaml" />
+      <AvaloniaXaml Remove="BookDataUC.axaml" />
     </ItemGroup>
 </Project>

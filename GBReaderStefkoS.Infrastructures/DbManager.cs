@@ -6,6 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace GBReaderStefkoS.Infrastructures
 {
+    //TODO try
     public class DbManager : IDbManager
     {
         private readonly IDbConnection _connection;
@@ -18,7 +19,7 @@ namespace GBReaderStefkoS.Infrastructures
         public void Dispose() => _connection.Dispose();
         
         //crée une methode qui charge les livres de la base de données
-        public IEnumerable<Book> GetBooks()
+        public IEnumerable<Book>? GetBooks()
         {
             
             var books = new List<Book>();
@@ -44,7 +45,7 @@ namespace GBReaderStefkoS.Infrastructures
             return books;
         }
         
-        public IList<Page> GetPagesFromBook(Book book)
+        public IList<Page> GetPagesFromBook(Book? book)
         {
             var pages = new List<Page>();
             
@@ -74,40 +75,42 @@ namespace GBReaderStefkoS.Infrastructures
             return pages;
         }
         
-        public void SetChoicesToPage (Book book, Page page)
+        public IList<Choice> SetChoicesToPage (Book? book, Page page)
         {
+            var choices = new List<Choice>();
+            
+            string sql = "SELECT p.pageIndex, c.text\n" +
+                         "FROM choice c\n" +
+                         "JOIN page p ON p.pageid = c.pageidend\n" +
+                         "JOIN page p2 ON p2.pageid = c.pageidstart\n" +
+                         "JOIN book b ON b.bookid = c.bookid\n" +
+                         "WHERE p2.pageindex = @pageIndexStart and b.Isbn = @bookIsbn";
+            using (IDbCommand command = _connection.CreateCommand())
             {
-                string sql = "SELECT p.pageIndex, c.text\n" +
-                             "FROM choice c\n" +
-                             "JOIN page p ON p.pageid = c.pageidend\n" +
-                             "JOIN page p2 ON p2.pageid = c.pageidstart\n" +
-                             "JOIN book b ON b.bookid = c.bookid\n" +
-                             "WHERE p2.pageindex = @pageIndexStart and b.Isbn = @bookIsbn";
-                using (IDbCommand command = _connection.CreateCommand())
-                {
-                    command.CommandText = sql;
-                
-                    IDbDataParameter paramPageIndex = command.CreateParameter();
-                    paramPageIndex.ParameterName = "@pageIndexStart";
-                    paramPageIndex.Value = page.Index;
-                    command.Parameters.Add(paramPageIndex);
-                    
-                    IDbDataParameter paramBookIsbn = command.CreateParameter();
-                    paramBookIsbn.ParameterName = "@bookIsbn";
-                    paramBookIsbn.Value = book.Isbn;
-                    command.Parameters.Add(paramBookIsbn);
-                
-                    using (IDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var choice = new Choice(reader.GetInt32(0), reader.GetString(1));
+                command.CommandText = sql;
+
+                IDbDataParameter paramPageIndex = command.CreateParameter();
+                paramPageIndex.ParameterName = "@pageIndexStart";
+                paramPageIndex.Value = page.Index;
+                command.Parameters.Add(paramPageIndex);
+
+                IDbDataParameter paramBookIsbn = command.CreateParameter();
+                paramBookIsbn.ParameterName = "@bookIsbn";
+                paramBookIsbn.Value = book.Isbn;
+                command.Parameters.Add(paramBookIsbn);
+
+                using (IDataReader reader = command.ExecuteReader())
+                { 
+                    while (reader.Read())
+                    { 
+                        var choice = new Choice(reader.GetInt32(0), reader.GetString(1));
                         
-                            page.Choices.Add(choice);
-                        }
+                        choices.Add(choice);
                     }
                 }
             }
+
+            return choices;
         }
         
         public Boolean ContainChoice (Page page)

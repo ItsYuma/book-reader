@@ -17,6 +17,9 @@
     <ItemGroup>
       <Compile Remove="AddBookPresenter.cs" />
       <Compile Remove="Views\IPageView.axaml.cs" />
+      <Compile Remove="IWindow.cs" />
+      <Compile Remove="MainPresenter.cs" />
+      <Compile Remove="IAllBooks.cs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -25,6 +28,10 @@
 
     <ItemGroup>
       <AvaloniaXaml Remove="Views\IPageView.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="../CodeMetricsConfig.txt" />
     </ItemGroup>
 
 </Project>

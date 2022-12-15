@@ -22,16 +22,22 @@ namespace GBReaderStefkoS.Infrastructures
             }
             catch (Exception e)
             {
-                throw new Exception("hey");
+                throw new Exception(e.Message);
             }
         }
         
         public IDbConnection GetConnection()
         {
-            IDbConnection connection = _factory.CreateConnection();
-            connection.ConnectionString = _dbConnectionString;
-            connection.Open();
-            return connection;
+            try
+            {
+                IDbConnection connection = _factory.CreateConnection();
+                connection.ConnectionString = _dbConnectionString;
+                connection.Open();
+                return connection;
+            } catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }

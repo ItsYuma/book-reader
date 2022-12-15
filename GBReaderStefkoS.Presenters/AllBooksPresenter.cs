@@ -12,7 +12,7 @@ namespace GBReaderStefkoS.Presenters
         private readonly IAllBooksView _view;
         private readonly ISwitchContent _router;
         private readonly IDbFactory _factory;
-        private IEnumerable<Book> _allBooks;
+        private IEnumerable<Book>? _allBooks;
 
         public AllBooksPresenter(IAllBooksView view, ISwitchContent router, IDbFactory factory)
         {
@@ -84,7 +84,7 @@ namespace GBReaderStefkoS.Presenters
                     bookSelected.Pages = dbManager.GetPagesFromBook(bookSelected);
                     foreach (var page in bookSelected.Pages)
                     {
-                        dbManager.SetChoicesToPage(bookSelected, page);
+                        page.Choices = dbManager.SetChoicesToPage(bookSelected, page);
                     }
                     StartReadingBook?.Invoke(this, new BookEventArg(bookSelected));
                     _router.Goto("pageView");
@@ -96,6 +96,6 @@ namespace GBReaderStefkoS.Presenters
             
         }
         
-        public event EventHandler<BookEventArg> StartReadingBook;
+        public event EventHandler<BookEventArg>? StartReadingBook;
     }
 }
