@@ -1,4 +1,4 @@
-namespace GBReaderStefkoS.Presenter;
+namespace GBReaderStefkoS.Presenters;
 
 public interface IAllBooks
 {

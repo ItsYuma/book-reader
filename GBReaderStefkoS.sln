@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBReaderStefkoS.Repositorie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBReaderStefkoS.Infrastructures", "GBReaderStefkoS.Infrastructures\GBReaderStefkoS.Infrastructures.csproj", "{E5926204-6DE8-4C6F-9BBB-7D08DCBE874C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBReaderStefkoS.Presenter", "GBReaderStefkoS.Presenter\GBReaderStefkoS.Presenter.csproj", "{AB183CD9-BCE7-4367-A473-746E3FAD5E9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBReaderStefkoS.Presenters", "GBReaderStefkoS.Presenters\GBReaderStefkoS.Presenters.csproj", "{AB183CD9-BCE7-4367-A473-746E3FAD5E9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,10 +1,8 @@
-﻿using Avalonia.Controls;
-using GBReaderStefkoS.Domains;
+﻿using GBReaderStefkoS.Domains;
 using GBReaderStefkoS.Infrastructures;
 using GBReaderStefkoS.Repositories;
 
-
-namespace GBReaderStefkoS.Presenter;
+namespace GBReaderStefkoS.Presenters;
 
 public class MainPresenter
 {
@@ -19,8 +17,15 @@ public class MainPresenter
     public MainPresenter(IWindow window){
         this._window = window;
         this._bookRepository = new BookRepository();
-        _books = _bookRepository.Load();
+        SetGame();
         //this._allBooks = addBooks;
+    }
+
+    public void SetGame()
+    {
+        if(!_bookRepository.FileExist()) _window.SetError("Pas de fichier trouvé");
+        else if(_bookRepository.FileEmpty()) _window.SetError("Fichier vide");
+        else _books = _bookRepository.Load();
     }
 
     public void ShowAllBooks()
@@ -34,7 +39,8 @@ public class MainPresenter
         //var item = new AllBooksUC();
         foreach (var b in _books)
         {
-            if(b.BookValid()) _allBooks.AddBook(b.Author.ToString(), b.Titre, b.Isbn, b.Resume);
+            //Console.WriteLine("hey");
+            //if(b.BookValid()) _allBooks.AddBook(b.Author.ToString(), b.Titre, b.Isbn, b.Resume);
             //if(b.BookValid()) _allBooks.
         }
         //return booksString;
@@ -61,14 +67,14 @@ public class MainPresenter
     {
         IEnumerable<Book> searchBooks =
             from book in _books
-            where book.Titre.ToLower().Contains(search) || book.Isbn.ToLower().Contains(search)
+            //where book.Titre.ToLower().Contains(search) || book.Isbn.ToLower().Contains(search)
             select book;
         if(searchBooks.Count() == 0) _allBooks.NoBook();
         else
         {
             foreach (var b in searchBooks)
             {
-                if(b.BookValid()) _allBooks.AddBook(b.Author.ToString(), b.Titre, b.Isbn, b.Resume);
+                //if(b.BookValid()) _allBooks.AddBook(b.Author.ToString(), b.Titre, b.Isbn, b.Resume);
             }
         }
     }

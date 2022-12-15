@@ -4,6 +4,8 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <AssemblyName>GBReaderStefkoS.Presenters</AssemblyName>
+        <RootNamespace>GBReaderStefkoS.Presenters</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,10 +16,15 @@
 
     <ItemGroup>
       <Compile Remove="AddBookPresenter.cs" />
+      <Compile Remove="Views\IPageView.axaml.cs" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Avalonia" Version="0.10.18" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaXaml Remove="Views\IPageView.axaml" />
     </ItemGroup>
 
 </Project>

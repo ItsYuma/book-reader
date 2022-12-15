@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="GBReaderStefkoS.Avalonia.UserControls.BookUserControl">
+            <StackPanel HorizontalAlignment="Center" >
+                <Border BorderBrush="Black"
+                        BorderThickness="2"
+                        CornerRadius="3"
+                        Padding="4"
+                        Margin="4"
+                        Width="400">
+                    
+                    <StackPanel>
+                        <TextBlock FontSize="16">Livre :</TextBlock> 
+                        <TextBlock x:Name="Title"></TextBlock>
+                        <TextBlock x:Name="Author"></TextBlock>
+                        <TextBlock x:Name="Resume" IsVisible="False"></TextBlock>
+                        <TextBlock x:Name="Isbn"></TextBlock>
+                        <Button Margin="2" Click="ShowDetails" HorizontalAlignment="Center">Détails</Button>
+                    </StackPanel>
+                </Border>    
+            </StackPanel>
+</UserControl>

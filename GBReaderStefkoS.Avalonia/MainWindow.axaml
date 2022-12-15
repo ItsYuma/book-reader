@@ -5,16 +5,4 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="GBReaderStefkoS.Avalonia.MainWindow"
         Title="GBReaderStefkoS.Avalonia">
-    <ScrollViewer>
-        <StackPanel x:Name="MainPanel">
-            <TextBlock TextAlignment="Center" FontSize="40">GameBook Stefko Stevy</TextBlock>
-            <StackPanel x:Name="ActualPanel">
-                
-            </StackPanel>
-            <!--<TextBox Watermark="Rechercehr"></TextBox>
-            <StackPanel x:Name="AllBooks" HorizontalAlignment="Center">
-            
-            </StackPanel>-->
-        </StackPanel>
-    </ScrollViewer>
 </Window>

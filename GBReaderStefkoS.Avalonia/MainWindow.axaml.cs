@@ -4,22 +4,46 @@ using System.Collections.ObjectModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using GBReaderStefkoS.Presenter;
+using GBReaderStefkoS.Presenters.Routes;
 
 namespace GBReaderStefkoS.Avalonia
 {
-    public partial class MainWindow : Window, IWindow
+    public partial class MainWindow : Window, ISwitchContent
     {
-        private MainPresenter _presenter;
-        //private UserControl _actualView;
-        /*files = new List<string>();
-        FileList.ItemsSource = files;*/
+        //private MainPresenter _presenter;
+        private readonly IDictionary<string, UserControl> _pages = new Dictionary<string, UserControl>();
 
         public MainWindow()
         {
             InitializeComponent();
+        }
+        
+        internal void RegisterPage(string pageName, UserControl page)
+        {
+            _pages[pageName] = page;
+            if(Content == null)
+            {
+                Content = page;
+            }
+        }
+        
+        public void Goto(string page) => Content = _pages[page];
+
+
+        //private UserControl _actualView;
+        /*files = new List<string>();
+        FileList.ItemsSource = files;*/
+
+        /*public MainWindow()
+        {
+            InitializeComponent();
             SetPresenter(new MainPresenter(this));
-            ShowAllBooks();
+            //ShowAllBooks();
+        }
+
+        public void Goto(string page)
+        {
+            
         }
 
         public void SetPresenter(MainPresenter presenter)
@@ -27,16 +51,22 @@ namespace GBReaderStefkoS.Avalonia
             this._presenter = presenter;
         }
 
+        public void SetError(string str)
+        {
+            ErrorText.Text = str;
+            ErrorText.IsVisible = true;
+        }
+
         /*public void LoadBooks()
         {
             throw new NotImplementedException();
         }*/
 
-        public void ShowAllBooks()
+        /*public void ShowAllBooks()
         {
             //_presenter.LoadBooks();
             ActualPanel.Children.Add(new AllBooksUC(_presenter));
-        }
+        }*/
 
         /*public void UpdateActualPanel(UserControl uc)
         {
@@ -64,7 +94,7 @@ namespace GBReaderStefkoS.Avalonia
             AllBooks.Children.Add(uc);
         }*/
 
-        public void ClearWindow()
+        /*public void ClearWindow()
         {
             ActualPanel.Children.Clear();
         }
@@ -74,6 +104,6 @@ namespace GBReaderStefkoS.Avalonia
             ClearWindow();
             var item = new BookDataUC(_presenter, author, title, isbn, resume);
             ActualPanel.Children.Add(item);
-        }
+        }*/
     }
 }

@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using GBReaderStefkoS.Presenter;
+using GBReaderStefkoS.Presenters;
 
 namespace GBReaderStefkoS.Avalonia;
 

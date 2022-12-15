@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="GBReaderStefkoS.Avalonia.Views.AllBooksView">
+    <StackPanel>
+        <TextBlock FontSize="28" HorizontalAlignment="Center" Text="Liste de livres" />
+        <TextBox x:Name="Search" Watermark="Rechercher" Width="300" Margin="5" KeyDown="InputElement_OnKeyDown" />
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" >
+            <StackPanel x:Name="BookList">
+            </StackPanel>
+            <Border BorderBrush="Black" BorderThickness="2"
+                    CornerRadius="3"
+                    Padding="4"
+                    Margin="4"
+                    Width="400"
+                    IsVisible="False"
+                    x:Name="ResumePanel"> 
+                <StackPanel>
+                    <TextBlock x:Name="TitleBookResume"></TextBlock>
+                    <TextBlock x:Name="Isbn" IsVisible="False"></TextBlock>
+                    <TextBlock x:Name="Resume"></TextBlock>
+                    <Button Margin="2" Click="StartReading" HorizontalAlignment="Center">Commencer/Reprendre la lecture</Button>
+                </StackPanel>
+            </Border>    
+        </StackPanel>
+        <TextBlock x:Name="Error"></TextBlock>
+    </StackPanel>
+</UserControl>

@@ -2,9 +2,12 @@
 
 namespace GBReaderStefkoS.Domains;
 
-public class Book
+public record Book (Author Author, string Title, string Resume, string Isbn)
 {
-    private Author _author;
+
+    public IList<Page> Pages { get; set; } = new List<Page>();
+    
+    /*private Author _author;
     private string _titre;
     private string _resume;
     private string _isbn;
@@ -15,9 +18,9 @@ public class Book
         this._titre = titre;
         this._resume = resume;
         this._isbn = isbn;
-    }
+    }*/
 
-    public Author Author
+    /*public Author Author
     {
         get { return _author; }
         set { _author = value ?? throw  new NullReferenceException("Autheur ne doit pas être null"); }
@@ -39,19 +42,9 @@ public class Book
     {
         get { return _isbn; }
         set { _isbn = value ?? throw new NullReferenceException("Isbn ne doit pas être null"); }
-    }
-
-    /*public List<Book> booksValid(List<Book> allBooks)
-    {
-        IEnumerable<Book> booksValid = 
-            from book in allBooks
-            where book.IsbnIsValid()
-            select book;
-
-        return (List<Book>)booksValid;
     }*/
 
-    public Boolean BookValid()
+    /*public Boolean BookValid()
     {
         if (DataNotNull()) return IsbnIsValid();
         else return false;
@@ -65,12 +58,12 @@ public class Book
     
     private Boolean IsbnIsValid()
     {
-        if(_isbn[2] != '-' && _isbn[9] != '-') return false;
+        if(_isbn[1] != '-' && _isbn[8] != '-') return false;
         
         string newIsbn =_isbn.Replace("-", String.Empty );
-        if (!CodeVerifValide(newIsbn[10])) return false;
+        if (!CodeVerifValide(newIsbn[9])) return false;
         
-        newIsbn = newIsbn.Substring(0, 9);
+        newIsbn = newIsbn.Substring(0, 8);
         Int64 nb;
         return Int64.TryParse(newIsbn,out nb);
     }
@@ -80,6 +73,6 @@ public class Book
         if(ch == 'x') return true;
         int nbr = (int)Char.GetNumericValue(ch);
         return ch >= 0 && nbr < 10;
-    }
+    }*/
 
 }

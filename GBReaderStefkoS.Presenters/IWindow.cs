@@ -1,6 +1,4 @@
-using Avalonia.Controls;
-
-namespace GBReaderStefkoS.Presenter;
+namespace GBReaderStefkoS.Presenters;
 
 public interface IWindow
 {
@@ -8,6 +6,8 @@ public interface IWindow
     void SetPresenter(MainPresenter presenter);
 
     //void LoadBooks();
+
+    void SetError(string str);
 
     void ShowAllBooks();
     
