@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -23,7 +24,8 @@ namespace GBReaderStefkoS.Avalonia.Views
             
             BookTitle.Text = bookTitle;
             NbPages.Text = "Nombre de pages : " + $"{nbPages}";
-            PageText.Text = "Texte de la page numéro " + $"{pageIndex} : " + pageText;
+            IndexPage.Text = "Page numéro : " + $"{pageIndex}";
+            PageText.Text = "Texte de la page  : " + pageText;
         }
 
         public void AddChoiceToPage(string choiceText, int choiceIndexToEnd)
@@ -38,9 +40,16 @@ namespace GBReaderStefkoS.Avalonia.Views
             EndOfStory.IsVisible = true;
         }
         
+        /*public void ShowError(string message)
+        {
+            Error.Text = message;
+            Error.IsVisible = true;
+        }*/
+        
         private void SwitchPage(object? sender, PageEventArg arg)
         {
-            SwitchPageRequested?.Invoke(this, arg);
+            string date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            SwitchPageAndSaveRequested?.Invoke(this, new SaveReadingEventArgs(arg.Index, date));
         }
         
         private void RestartReading(object? sender, RoutedEventArgs e)
@@ -53,8 +62,9 @@ namespace GBReaderStefkoS.Avalonia.Views
             QuitRequested?.Invoke(this, EventArgs.Empty);
         }
         
-        public event EventHandler<PageEventArg> SwitchPageRequested;
+        public event EventHandler<SaveReadingEventArgs> SwitchPageAndSaveRequested;
         public event EventHandler<EventArgs> RestartRequested;
         public event EventHandler<EventArgs> QuitRequested;
+        
     }
 }

@@ -8,9 +8,10 @@ namespace GBReaderStefkoS.Presenters.Views
         
         void ShowDetailsBookSelected(object? sender, DetailsEventArgs args);
 
-        void ShowError(string aucunLivreTrouvé);
+        void ShowError(string message);
         
         event EventHandler<SearchEventArg> SearchRequested;
         event EventHandler<ReadingEventArg> ReadingRequested;
+        event EventHandler<EventArgs> StatsRequested;
     }
 }

@@ -2,6 +2,7 @@ using System.Data;
 using System.Data.Common;
 using GBReaderStefkoS.Domains;
 using GBReaderStefkoS.Repositories;
+using GBReaderStefkoS.Repositories.Exceptions;
 using MySql.Data.MySqlClient;
 
 namespace GBReaderStefkoS.Infrastructures
@@ -28,117 +29,114 @@ namespace GBReaderStefkoS.Infrastructures
                            "FROM book b\n" +
                            "JOIN author a ON a.authorid = b.authorid\n" +
                            "WHERE ispublish = TRUE";
-            using (IDbCommand command = _connection.CreateCommand())
+            try
             {
-                command.CommandText = sql;
-                using (IDataReader reader = command.ExecuteReader())
+                using (IDbCommand command = _connection.CreateCommand())
                 {
-                    while (reader.Read())
+                    command.CommandText = sql;
+                    using (IDataReader reader = command.ExecuteReader())
                     {
-                        var author = new Author(reader.GetString(0), reader.GetString(1), reader.GetString(2));
-                        var book = new Book(author, reader.GetString(3), reader.GetString(4), reader.GetString(5));
+                        while (reader.Read())
+                        {
+                            var author = new Author(reader.GetString(0), reader.GetString(1), reader.GetString(2));
+                            var book = new Book(author, reader.GetString(3), reader.GetString(4), reader.GetString(5));
                         
-                       books.Add(book); 
+                            books.Add(book); 
+                        }
                     }
                 }
+            }
+            catch (DbException)
+            {
+                throw new StorageException("Erreur lors de la récupération des livres");
             }
             return books;
         }
         
         public IList<Page> GetPagesFromBook(Book? book)
         {
-            var pages = new List<Page>();
-            
-            string sql = "SELECT p.pageIndex, p.text\n" +
-                           "FROM page p\n" +
-                           "JOIN book b ON b.bookid = p.bookid\n" +
-                           "WHERE b.isbn = @isbn\n" +
-                           "ORDER by p.pageIndex";
-            using (IDbCommand command = _connection.CreateCommand())
+            try
             {
-                command.CommandText = sql;
-                
-                IDbDataParameter param = command.CreateParameter();
-                param.ParameterName = "@isbn";
-                param.Value = book.Isbn;
-                command.Parameters.Add(param);
-                
-                using (IDataReader reader = command.ExecuteReader())
+                var pages = new List<Page>();
+            
+                string sql = "SELECT p.pageIndex, p.text\n" +
+                             "FROM page p\n" +
+                             "JOIN book b ON b.bookid = p.bookid\n" +
+                             "WHERE b.isbn = @isbn\n" +
+                             "ORDER by p.pageIndex";
+                using (IDbCommand command = _connection.CreateCommand())
                 {
-                    while (reader.Read())
+                    command.CommandText = sql;
+                
+                    IDbDataParameter param = command.CreateParameter();
+                    param.DbType = DbType.String;
+                    param.ParameterName = "@isbn";
+                    param.Value = book.Isbn;
+                    command.Parameters.Add(param);
+                
+                    using (IDataReader reader = command.ExecuteReader())
                     {
-                        var page = new Page(reader.GetInt32(0), reader.GetString(1));
-                        pages.Add(page);
+                        while (reader.Read())
+                        {
+                            var page = new Page(reader.GetInt32(0), reader.GetString(1));
+                            pages.Add(page);
+                        }
                     }
                 }
+                return pages;
+            } 
+            catch (DbException)
+            {
+                throw new StorageException("Erreur lors de la récupération des pages");
             }
-            return pages;
+            
         }
         
         public IList<Choice> SetChoicesToPage (Book? book, Page page)
         {
-            var choices = new List<Choice>();
+            try
+            {
+                var choices = new List<Choice>();
             
-            string sql = "SELECT p.pageIndex, c.text\n" +
-                         "FROM choice c\n" +
-                         "JOIN page p ON p.pageid = c.pageidend\n" +
-                         "JOIN page p2 ON p2.pageid = c.pageidstart\n" +
-                         "JOIN book b ON b.bookid = c.bookid\n" +
-                         "WHERE p2.pageindex = @pageIndexStart and b.Isbn = @bookIsbn";
-            using (IDbCommand command = _connection.CreateCommand())
-            {
-                command.CommandText = sql;
-
-                IDbDataParameter paramPageIndex = command.CreateParameter();
-                paramPageIndex.ParameterName = "@pageIndexStart";
-                paramPageIndex.Value = page.Index;
-                command.Parameters.Add(paramPageIndex);
-
-                IDbDataParameter paramBookIsbn = command.CreateParameter();
-                paramBookIsbn.ParameterName = "@bookIsbn";
-                paramBookIsbn.Value = book.Isbn;
-                command.Parameters.Add(paramBookIsbn);
-
-                using (IDataReader reader = command.ExecuteReader())
-                { 
-                    while (reader.Read())
-                    { 
-                        var choice = new Choice(reader.GetInt32(0), reader.GetString(1));
-                        
-                        choices.Add(choice);
-                    }
-                }
-            }
-
-            return choices;
-        }
-        
-        public Boolean ContainChoice (Page page)
-        {
-            string sql = "SELECT count(*)" +
-                         "FROM choice c\n" +
-                         "JOIN page p ON p.pageid = c.pageidend\n" +
-                         "JOIN page p2 ON p2.pageid = c.pageidstart\n" +
-                         "WHERE p2.pageindex = @pageIndexStart";
-            using (IDbCommand command = _connection.CreateCommand())
-            {
-                command.CommandText = sql;
-                
-                IDbDataParameter param = command.CreateParameter();
-                param.ParameterName = "@isbn";
-                param.Value = page.Index;
-                command.Parameters.Add(param);
-                
-                using (IDataReader reader = command.ExecuteReader())
+                string sql = "SELECT p.pageIndex, c.text\n" +
+                             "FROM choice c\n" +
+                             "JOIN page p ON p.pageid = c.pageidend\n" +
+                             "JOIN page p2 ON p2.pageid = c.pageidstart\n" +
+                             "JOIN book b ON b.bookid = c.bookid\n" +
+                             "WHERE p2.pageindex = @pageIndexStart and b.Isbn = @bookIsbn";
+                using (IDbCommand command = _connection.CreateCommand())
                 {
-                    if (reader.Read())
-                    {
-                        return reader.GetInt32(0) > 0;
-                        //Console.WriteLine(reader.GetString(0));
+                    command.CommandText = sql;
+
+                    IDbDataParameter paramPageIndex = command.CreateParameter();
+                    paramPageIndex.DbType = DbType.Int32;
+                    paramPageIndex.ParameterName = "@pageIndexStart";
+                    paramPageIndex.Value = page.Index;
+                    command.Parameters.Add(paramPageIndex);
+
+                    IDbDataParameter paramBookIsbn = command.CreateParameter();
+                    paramBookIsbn.DbType = DbType.String;
+                    paramBookIsbn.ParameterName = "@bookIsbn";
+                    paramBookIsbn.Value = book.Isbn;
+                    command.Parameters.Add(paramBookIsbn);
+
+                    using (IDataReader reader = command.ExecuteReader())
+                    { 
+                        while (reader.Read())
+                        { 
+                            var choice = new Choice(reader.GetInt32(0), reader.GetString(1));
+                        
+                            choices.Add(choice);
+                        }
                     }
                 }
+
+                return choices;
+            } 
+            catch (DbException)
+            {
+                throw new StorageException("Erreur lors de la récupération des pages");
             }
-            return false;
-        } 
+        }
     }
 }

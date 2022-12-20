@@ -8,6 +8,7 @@
         <Button HorizontalAlignment="Left" Click="BackToHome">Retourner à l'accueil</Button>
         <TextBlock x:Name="BookTitle" FontSize="28" HorizontalAlignment="Center"/>
         <TextBlock x:Name="NbPages" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="IndexPage" HorizontalAlignment="Center"></TextBlock>
         <TextBlock x:Name="PageText" HorizontalAlignment="Center"/>
         <StackPanel x:Name="ChoiceList" HorizontalAlignment="Center">
             
@@ -16,5 +17,6 @@
             <TextBlock>Vous êtes arrivé à la fin du livre</TextBlock>
             <Button Click="RestartReading">Reprendre la lecture</Button>
         </StackPanel>
+        <TextBlock x:Name="Error"></TextBlock>
     </StackPanel>
 </UserControl>

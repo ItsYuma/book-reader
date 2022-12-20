@@ -38,4 +38,7 @@
       <AvaloniaXaml Remove="AllBooksUC.axaml" />
       <AvaloniaXaml Remove="BookDataUC.axaml" />
     </ItemGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <NoWarn>8602;8603;8604;8618</NoWarn>
+    </PropertyGroup>
 </Project>

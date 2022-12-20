@@ -7,6 +7,7 @@
     <StackPanel>
         <TextBlock FontSize="28" HorizontalAlignment="Center" Text="Liste de livres" />
         <TextBox x:Name="Search" Watermark="Rechercher" Width="300" Margin="5" KeyDown="InputElement_OnKeyDown" />
+        <Button Click="ShowStats">Statistiques</Button>
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" >
             <StackPanel x:Name="BookList">
             </StackPanel>

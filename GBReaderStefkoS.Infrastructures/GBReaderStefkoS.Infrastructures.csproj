@@ -17,4 +17,21 @@
     <ItemGroup>
         <AdditionalFiles Include="../CodeMetricsConfig.txt" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="Exceptions\RessourceNotFound.cs" />
+      <Compile Remove="Exceptions\DirectoryCreatedException.cs" />
+      <Compile Remove="Exceptions\FileCreatedException.cs" />
+      <Compile Remove="Exceptions\StorageManagementException.cs" />
+      <Compile Remove="Exceptions\**" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Remove="Exceptions\**" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Remove="Exceptions\**" />
+    </ItemGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <NoWarn>8602;8603;8604;8618</NoWarn>
+    </PropertyGroup>
 </Project>

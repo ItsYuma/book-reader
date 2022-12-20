@@ -6,10 +6,10 @@ public interface IRepository
 {
     //List<Book> load();
 
-    List<Book> Load();
+   // List<Book> Load();
 
-    Boolean FileExist();
+    //Boolean FileExist();
 
-    Boolean FileEmpty();
+    //Boolean FileEmpty();
 
 }

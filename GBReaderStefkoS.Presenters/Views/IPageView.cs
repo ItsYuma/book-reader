@@ -10,7 +10,9 @@ namespace GBReaderStefkoS.Presenters.Views
         
         void ShowEndOfStory();
         
-        public event EventHandler<PageEventArg> SwitchPageRequested;
+        //void ShowError(string message);
+        
+        public event EventHandler<SaveReadingEventArgs> SwitchPageAndSaveRequested;
         public event EventHandler<EventArgs> RestartRequested;
         public event EventHandler<EventArgs> QuitRequested;
         

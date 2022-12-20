@@ -7,7 +7,7 @@ namespace GBReaderStefkoS.Infrastructures;
 
 public class BookRepository : IRepository
 {
-    private static string _userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+   /* private static string _userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
     private static char _separator = Path.DirectorySeparatorChar;
     private string _filePath = _userPath + _separator + "ue36" + _separator + "q210020.json";
     //private const string FilePath = "/Users/stevystefko/ue36/q210020.json";
@@ -29,7 +29,7 @@ public class BookRepository : IRepository
                     Console.WriteLine(b.Resume);
                     Console.WriteLine(b.Isbn);
                 }*/
-            }
+            /*}
         }
         catch (FileNotFoundException e)
         {
@@ -50,5 +50,5 @@ public class BookRepository : IRepository
     public bool FileEmpty()
     {
         return new FileInfo(_filePath).Length == 0;
-    }
+    }*/
 }    

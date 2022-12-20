@@ -1,9 +1,11 @@
+using System.Data.Common;
 using GBReaderStefkoS.Domains;
 using GBReaderStefkoS.Infrastructures;
 using GBReaderStefkoS.Presenters.Events;
 using GBReaderStefkoS.Presenters.Routes;
 using GBReaderStefkoS.Presenters.Views;
 using GBReaderStefkoS.Repositories;
+using GBReaderStefkoS.Repositories.Exceptions;
 
 namespace GBReaderStefkoS.Presenters
 {
@@ -24,6 +26,7 @@ namespace GBReaderStefkoS.Presenters
             
             _view.SearchRequested += ShowSearchBook;
             _view.ReadingRequested += ShowPagesBook;
+            _view.StatsRequested += ShowStats;
         }
 
         private void SetBooksToView()
@@ -37,35 +40,35 @@ namespace GBReaderStefkoS.Presenters
                     {
                         _view.ShowError("Auncun livre n'est publié");
                     }
+
                     foreach (var book in _allBooks)
                     {
                         _view.addBookToView(book.Author.ToString(), book.Title, book.Resume, book.Isbn);
                     }
                 }
-            } catch (Exception e)
+            }
+            catch (StorageException e)
             {
-                _view.ShowError("Une erreur est survenue lors de la récupération des livres (problème de connexion)");
+                _view.ShowError(e.Message);
             }
         }
         
         private void ShowSearchBook(object? sender, SearchEventArg args)
         {
-            if (_allBooks != null && _allBooks.Count() > 0)
-            {
-                IEnumerable<Book> searchBooks =
+
+            IEnumerable<Book> searchBooks =
                     from book in _allBooks
                     where book.Title.ToLower().Contains(args.StringToSearch) || book.Isbn.ToLower().Contains(args.StringToSearch)
                     select book;
-                if (searchBooks.Count() == 0)
-                {
-                    _view.ShowError("Aucun livre trouvé");
-                }
-                else
-                {
-                    foreach (var book in searchBooks)
-                    {
-                        _view.addBookToView(book.Author.ToString(), book.Title, book.Resume, book.Isbn);
-                    }
+            if (searchBooks.Count() == 0)
+            { 
+                _view.ShowError("Aucun livre trouvé");
+            }
+            else
+            { 
+                foreach (var book in searchBooks)
+                { 
+                    _view.addBookToView(book.Author.ToString(), book.Title, book.Resume, book.Isbn);
                 }
             }
         }
@@ -89,13 +92,21 @@ namespace GBReaderStefkoS.Presenters
                     StartReadingBook?.Invoke(this, new BookEventArg(bookSelected));
                     _router.Goto("pageView");
                 }
-            } catch (Exception e)
-            {
-                _view.ShowError("Impossible de récupérer les pages du livre (problème de connexion)");
             }
-            
+            catch (StorageException e)
+            {
+                _view.ShowError(e.Message);
+            }
+
+        }
+        
+        private void ShowStats(object? sender, EventArgs args)
+        {
+            GoToStats?.Invoke(this, new EventArgs());
+            _router.Goto("statsView");
         }
         
         public event EventHandler<BookEventArg>? StartReadingBook;
+        public event EventHandler <EventArgs> GoToStats;
     }
 }

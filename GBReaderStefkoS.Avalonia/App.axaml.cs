@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -29,21 +30,24 @@ namespace GBReaderStefkoS.Avalonia
             
             base.OnFrameworkInitializationCompleted();
         }
-        
+
         private void CreateViewsAndWhatever()
         {
 
-            var dbFactory = new DbFactory("MySql.Data.MySqlClient",
-                "Server=192.168.132.200;" + "Port=13306;" + "Database=Q210020;" + "uid=Q210020;" + "pwd=0020;");
-            
+            var dbFactory = new DbFactory();
+
             var allBooksView = new AllBooksView();
             var AllBooksPresenter = new AllBooksPresenter(allBooksView, _mainWindow, dbFactory);
             
             var pageView = new PageView();
             var pagePresenter = new PagePresenter(pageView, _mainWindow, dbFactory, AllBooksPresenter);
             
+            var statsView = new StatsView();
+            var statsPresenter = new StatsPresenter(statsView, _mainWindow, dbFactory, AllBooksPresenter);
+            
             _mainWindow.RegisterPage("allBooks", allBooksView);
             _mainWindow.RegisterPage("pageView", pageView);
+            _mainWindow.RegisterPage("statsView", statsView);
             
         }
     }

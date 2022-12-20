@@ -6,7 +6,12 @@ public record Book (Author Author, string Title, string Resume, string Isbn)
 {
 
     public IList<Page> Pages { get; set; } = new List<Page>();
-    
+
+    public bool PageHaveChoice(int pageIndex)
+    {
+        return Pages.Any(p => p.Index == pageIndex && p.Choices.Count > 0);
+    }
+
     /*private Author _author;
     private string _titre;
     private string _resume;

@@ -1,4 +1,7 @@
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
 using GBReaderStefkoS.Domains;
+using GBReaderStefkoS.Infrastructures;
 using GBReaderStefkoS.Presenters.Events;
 using GBReaderStefkoS.Presenters.Routes;
 using GBReaderStefkoS.Presenters.Views;
@@ -20,31 +23,43 @@ namespace GBReaderStefkoS.Presenters
             _factory = factory;
 
             allBooksPresenter.StartReadingBook += StartReadingBook;
-            _view.SwitchPageRequested += SwitchPage;
+            _view.SwitchPageAndSaveRequested += SwitchPage;
             _view.RestartRequested += GoToFirstPage;
             _view.QuitRequested += GoToAllBooksView;
+             
         }
         
         private void StartReadingBook(object? sender, BookEventArg arg)
         {
             _actualBook = arg.Book;
-            
-            GoToFirstPage();
+
+            IJsonManager jsonManager = new JsonManager();
+            var pageIndex = jsonManager.GetLastPageRead(_actualBook.Isbn);
+            GoToPage(pageIndex);
         }
         
-        private void GoToFirstPage()
+        private void GoToPage(int index)
         {
             //_actualBook = arg.Book;
-            var page = _actualBook.Pages[0];
+            var page = _actualBook.Pages[index - 1];
             
             SetDataToPage(page);
         }
 
-        private void GoToFirstPage(object? sender, EventArgs arg) => GoToFirstPage();
+        private void GoToFirstPage(object? sender, EventArgs arg) => GoToPage(1);
 
-        private void SwitchPage(object? sender, PageEventArg arg)
+        private void SwitchPage(object? sender, SaveReadingEventArgs args)
         {
-            var page = _actualBook.Pages[arg.Index - 1];
+            var page = _actualBook.Pages[args.PageIndex - 1];
+            if (args.PageIndex == 1 || !_actualBook.PageHaveChoice(args.PageIndex))
+            {
+                RemoveSession();
+            }
+            else
+            {
+                SaveSession(args.PageIndex, args.DateTime);
+            }
+            
             SetDataToPage(page);
         }
         
@@ -65,6 +80,21 @@ namespace GBReaderStefkoS.Presenters
             }
         }
 
-        private void GoToAllBooksView(object? sender, EventArgs arg) => _router.Goto("allBooks");
+        private void GoToAllBooksView(object? sender, EventArgs args)
+        {
+            _router.Goto("allBooks");  
+        }
+
+        private void SaveSession(int pageIndex, string dateTime)
+        {
+            IJsonManager jsonManager = new JsonManager(); 
+            jsonManager.SaveOrUpdateSession(_actualBook.Title, _actualBook.Isbn, pageIndex, dateTime);
+        }
+
+        private void RemoveSession()
+        {
+            IJsonManager jsonManager = new JsonManager();
+            jsonManager.RemoveSession(_actualBook.Isbn);
+        }
     }
 }

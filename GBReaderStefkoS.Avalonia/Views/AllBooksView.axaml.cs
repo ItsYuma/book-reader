@@ -43,6 +43,7 @@ namespace GBReaderStefkoS.Avalonia.Views
 
         public void ShowError(string message)
         {
+            Search.IsEnabled = false;
             Error.Text = message;
         }
 
@@ -61,8 +62,14 @@ namespace GBReaderStefkoS.Avalonia.Views
             ReadingRequested?.Invoke(this, new ReadingEventArg(Isbn.Text));
         }
         
+        private void ShowStats(object? sender, RoutedEventArgs e)
+        {
+            StatsRequested?.Invoke(this, EventArgs.Empty);
+        }
+        
         public event EventHandler<SearchEventArg> SearchRequested;
         public event EventHandler<ReadingEventArg> ReadingRequested;
+        public event EventHandler<EventArgs> StatsRequested;
         
     }
 }

@@ -13,9 +13,11 @@
         <entry key="GBReaderStefkoS.Avalonia/MainWindow.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
         <entry key="GBReaderStefkoS.Avalonia/UserControls/BookUserControl.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
         <entry key="GBReaderStefkoS.Avalonia/UserControls/ChoiceUserControl.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
+        <entry key="GBReaderStefkoS.Avalonia/UserControls/SessionUserControl.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
         <entry key="GBReaderStefkoS.Avalonia/Views/AllBooks.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
         <entry key="GBReaderStefkoS.Avalonia/Views/AllBooksView.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
         <entry key="GBReaderStefkoS.Avalonia/Views/PageView.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
+        <entry key="GBReaderStefkoS.Avalonia/Views/StatsView.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
         <entry key="GBReaderStefkoS.Presenters/Views/IPageView.axaml" value="GBReaderStefkoS.Avalonia/GBReaderStefkoS.Avalonia.csproj" />
       </map>
     </option>

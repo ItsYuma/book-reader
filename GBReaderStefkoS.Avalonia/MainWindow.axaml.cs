@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -26,6 +27,11 @@ namespace GBReaderStefkoS.Avalonia
                 Content = page;
             }
         }
+        
+        /*public void OnClosing(object sender, CancelEventArgs e)
+        {
+            //_presenter.OnClosing();
+        }*/
         
         public void Goto(string page) => Content = _pages[page];
 
