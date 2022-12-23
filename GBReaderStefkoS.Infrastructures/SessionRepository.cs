@@ -6,12 +6,18 @@ using Org.BouncyCastle.Bcpg;
 
 namespace GBReaderStefkoS.Infrastructures
 {
-    public class JsonManager : IJsonManager
+    public class SessionRepository : ISessionRepository
     {
         private static readonly string _userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         private static readonly char _separator = Path.DirectorySeparatorChar;
         private static readonly string _directoryPath = _userPath + _separator + "ue36";
-        private static readonly string _filePath = _directoryPath + _separator + "q210020-session.json";
+        //private static readonly string _filePath = _directoryPath + _separator + "q210020-session.json";
+        private readonly string _filePath;
+
+        public SessionRepository(string fileName)
+        {
+            _filePath = _directoryPath + _separator + fileName;
+        }
 
         public IList<ReadingSession> LoadSessions()
         {

@@ -2,7 +2,7 @@ using GBReaderStefkoS.Domains;
 
 namespace GBReaderStefkoS.Repositories
 {
-    public interface IJsonManager
+    public interface ISessionRepository
     {
         IList<ReadingSession> LoadSessions();
 

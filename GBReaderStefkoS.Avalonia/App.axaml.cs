@@ -34,16 +34,17 @@ namespace GBReaderStefkoS.Avalonia
         private void CreateViewsAndWhatever()
         {
 
-            var dbFactory = new DbFactory();
+            var storageRepository = new StorageRepository(new DbFactory());
+            var sessionRepository = new SessionRepository("q210020-session.json");
 
             var allBooksView = new AllBooksView();
-            var AllBooksPresenter = new AllBooksPresenter(allBooksView, _mainWindow, dbFactory);
+            var AllBooksPresenter = new AllBooksPresenter(allBooksView, _mainWindow, storageRepository);
             
             var pageView = new PageView();
-            var pagePresenter = new PagePresenter(pageView, _mainWindow, dbFactory, AllBooksPresenter);
+            var pagePresenter = new PagePresenter(pageView, _mainWindow, sessionRepository, AllBooksPresenter);
             
             var statsView = new StatsView();
-            var statsPresenter = new StatsPresenter(statsView, _mainWindow, dbFactory, AllBooksPresenter);
+            var statsPresenter = new StatsPresenter(statsView, _mainWindow, sessionRepository, AllBooksPresenter);
             
             _mainWindow.RegisterPage("allBooks", allBooksView);
             _mainWindow.RegisterPage("pageView", pageView);

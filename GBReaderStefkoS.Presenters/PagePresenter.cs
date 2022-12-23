@@ -13,14 +13,15 @@ namespace GBReaderStefkoS.Presenters
     {
         private readonly IPageView _view;
         private readonly ISwitchContent _router;
-        private readonly IDbFactory _factory;
+        private readonly ISessionRepository _sessionRepository;
         private Book? _actualBook;
         
-        public PagePresenter(IPageView view, ISwitchContent router, IDbFactory factory, AllBooksPresenter allBooksPresenter)
+        public PagePresenter(IPageView view, ISwitchContent router, ISessionRepository sessionRepository, AllBooksPresenter allBooksPresenter)
         {
             _view = view;
             _router = router;
-            _factory = factory;
+            _sessionRepository = sessionRepository;
+            //_storageRepository = storageRepository;
 
             allBooksPresenter.StartReadingBook += StartReadingBook;
             _view.SwitchPageAndSaveRequested += SwitchPage;
@@ -32,9 +33,8 @@ namespace GBReaderStefkoS.Presenters
         private void StartReadingBook(object? sender, BookEventArg arg)
         {
             _actualBook = arg.Book;
-
-            IJsonManager jsonManager = new JsonManager();
-            var pageIndex = jsonManager.GetLastPageRead(_actualBook.Isbn);
+            
+            var pageIndex = _sessionRepository.GetLastPageRead(_actualBook.Isbn);
             GoToPage(pageIndex);
         }
         
@@ -87,14 +87,12 @@ namespace GBReaderStefkoS.Presenters
 
         private void SaveSession(int pageIndex, string dateTime)
         {
-            IJsonManager jsonManager = new JsonManager(); 
-            jsonManager.SaveOrUpdateSession(_actualBook.Title, _actualBook.Isbn, pageIndex, dateTime);
+            _sessionRepository.SaveOrUpdateSession(_actualBook.Title, _actualBook.Isbn, pageIndex, dateTime);
         }
 
         private void RemoveSession()
         {
-            IJsonManager jsonManager = new JsonManager();
-            jsonManager.RemoveSession(_actualBook.Isbn);
+            _sessionRepository.RemoveSession(_actualBook.Isbn);
         }
     }
 }

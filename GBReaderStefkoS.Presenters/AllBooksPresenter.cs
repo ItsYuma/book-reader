@@ -13,14 +13,14 @@ namespace GBReaderStefkoS.Presenters
     {
         private readonly IAllBooksView _view;
         private readonly ISwitchContent _router;
-        private readonly IDbFactory _factory;
+        private readonly IStorageRepository _storageRepository;
         private IEnumerable<Book>? _allBooks;
 
-        public AllBooksPresenter(IAllBooksView view, ISwitchContent router, IDbFactory factory)
+        public AllBooksPresenter(IAllBooksView view, ISwitchContent router, IStorageRepository storageRepository)
         {
             _view = view;
             _router = router;
-            _factory = factory;
+            _storageRepository = storageRepository;
             
             SetBooksToView();
             
@@ -33,19 +33,23 @@ namespace GBReaderStefkoS.Presenters
         {
             try
             {
-                using (IDbManager dbManager = new DbManager(_factory.GetConnection()))
+                _allBooks = _storageRepository.GetBooks();
+                
+                //_allBooks = dbManager.GetBooks();
+                if (_allBooks == null || _allBooks.Count() == 0)
                 {
-                    _allBooks = dbManager.GetBooks();
-                    if (_allBooks == null || _allBooks.Count() == 0)
-                    {
-                        _view.ShowError("Auncun livre n'est publié");
-                    }
-
-                    foreach (var book in _allBooks)
-                    {
-                        _view.addBookToView(book.Author.ToString(), book.Title, book.Resume, book.Isbn);
-                    }
+                    _view.ShowError("Auncun livre n'est publié");
                 }
+
+                foreach (var book in _allBooks)
+                {
+                    _view.addBookToView(book.Author.ToString(), book.Title, book.Resume, book.Isbn);
+                }
+                
+                /*using (IDbManager dbManager = new DbManager(_factory.GetConnection()))
+                {
+                    
+                }*/
             }
             catch (StorageException e)
             {
@@ -82,16 +86,13 @@ namespace GBReaderStefkoS.Presenters
             
             try
             {
-                using (IDbManager dbManager = new DbManager(_factory.GetConnection()))
+                bookSelected.Pages = _storageRepository.GetPagesFromBook(bookSelected);
+                foreach (var page in bookSelected.Pages)
                 {
-                    bookSelected.Pages = dbManager.GetPagesFromBook(bookSelected);
-                    foreach (var page in bookSelected.Pages)
-                    {
-                        page.Choices = dbManager.SetChoicesToPage(bookSelected, page);
-                    }
-                    StartReadingBook?.Invoke(this, new BookEventArg(bookSelected));
-                    _router.Goto("pageView");
+                    page.Choices = _storageRepository.SetChoicesToPage(bookSelected, page);
                 }
+                StartReadingBook?.Invoke(this, new BookEventArg(bookSelected));
+                _router.Goto("pageView");
             }
             catch (StorageException e)
             {

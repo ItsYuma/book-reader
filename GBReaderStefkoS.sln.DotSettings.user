@@ -1,0 +1,8 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a6571bab_002Dd94f_002D4fda_002Db072_002D46bb58467151/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="JsonNotExist" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::C5EFBD25-E693-4E86-A32C-332C0070D009::net6.0::GBReaderStefkoS.InfrastucturesTests.JsonManagerTests.JsonNotExist&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::C5EFBD25-E693-4E86-A32C-332C0070D009::net6.0::GBReaderStefkoS.InfrastucturesTests.JsonManagerTests.JsonArgReadingSessionMissing&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::C5EFBD25-E693-4E86-A32C-332C0070D009::net6.0::GBReaderStefkoS.InfrastucturesTests.JsonManagerTests.JsonNotWellFormated&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

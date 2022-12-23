@@ -5,7 +5,7 @@ namespace GBReaderStefkoS.Repositories
     /**
      * Interface for the DbManager
      */
-    public interface IDbManager : IDisposable
+    public interface IStorageRepository
     {
         /**
          * return all the books published in the database

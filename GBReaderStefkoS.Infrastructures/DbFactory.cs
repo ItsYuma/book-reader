@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace GBReaderStefkoS.Infrastructures
 {
-    public class DbFactory : IDbFactory
+    public class DbFactory
     {
         private const string ProviderName = "MySql.Data.MySqlClient";
         private const string DbConnectionString = "Server=192.168.132.200;" + "Port=13306;" + "Database=Q210020;" + "uid=Q210020;" + "pwd=0020;";

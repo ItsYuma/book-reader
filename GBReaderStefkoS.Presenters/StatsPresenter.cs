@@ -9,13 +9,13 @@ namespace GBReaderStefkoS.Presenters
     {
         private readonly IStatsView _view;
         private readonly ISwitchContent _router;
-        private readonly IDbFactory _factory;
+        private readonly ISessionRepository _sessionRepository;
         
-        public StatsPresenter(IStatsView view, ISwitchContent router, IDbFactory factory, AllBooksPresenter allBooksPresenter)
+        public StatsPresenter(IStatsView view, ISwitchContent router, ISessionRepository sessionRepository, AllBooksPresenter allBooksPresenter)
         {
             _view = view;
             _router = router;
-            _factory = factory;
+            _sessionRepository = sessionRepository;
             
             //SetDataToView();
             
@@ -30,8 +30,7 @@ namespace GBReaderStefkoS.Presenters
 
         private void SetDataToView()
         {
-            IJsonManager jsonManager = new JsonManager();
-            var listSession = jsonManager.LoadSessions();
+            var listSession = _sessionRepository.LoadSessions();
             _view.SetData(listSession.Count);
             foreach (var session in listSession)
             { 
