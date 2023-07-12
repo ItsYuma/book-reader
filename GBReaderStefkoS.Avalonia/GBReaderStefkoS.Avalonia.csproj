@@ -25,6 +25,7 @@
         <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\GBReaderStefkoS.Infrastructures\GBReaderStefkoS.Infrastructures.csproj" />
       <ProjectReference Include="..\GBReaderStefkoS.Presenters\GBReaderStefkoS.Presenters.csproj" />
     </ItemGroup>
     <ItemGroup>

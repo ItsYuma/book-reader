@@ -12,13 +12,16 @@ namespace GBReaderStefkoS.Domains
         
         public string DateLastReading { get; set; }
         
-        public ReadingSession(string bookTitle, string bookIsbn, int pageIndex, string dateBeginning, string dateLastReading)
+        public IList<int> PagesReaded { get; set; }
+        
+        public ReadingSession(string bookTitle, string bookIsbn, int pageIndex, string dateBeginning, string dateLastReading, IList<int> pagesReaded)
         {
             BookTitle = bookTitle;
             BookIsbn = bookIsbn;
             PageIndex = pageIndex;
             DateBeginning = dateBeginning;
             DateLastReading = dateLastReading;
+            PagesReaded = pagesReaded;
         }
     }
 }

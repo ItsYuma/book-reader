@@ -15,6 +15,7 @@ public class JsonManagerTests
     private static readonly string _directoryPath = _userPath + _separator + "ue36";
     
     private static string _jsonFieTest = "q210020-test.json";
+    private static string _jsonNotJsonTest = "q210020-test.txt";
     
     //[SetUp]
     //public void Setup()
@@ -27,7 +28,7 @@ public class JsonManagerTests
     public void JsonNotExist()
     {
          ISessionRepository sessionRepository = new SessionRepository(_jsonFieTest);
-         Assert.That(File.Exists(_directoryPath + _separator + _jsonFieTest), Is.EqualTo(true));
+         Assert.That(File.Exists(_directoryPath + _separator + _jsonFieTest), Is.EqualTo(false));
 
          sessionRepository.LoadSessions();
          
@@ -38,7 +39,7 @@ public class JsonManagerTests
     
     // si des arguments sont manquants, les sessions auquelles ils manquent des artuments sont ignorées
     [Test]
-    public void JsonArgReadingSessionMissing()
+    public void JsonArgReadingSessionMissingArgument()
     {
         ISessionRepository sessionRepository = new SessionRepository(_jsonFieTest);
         string json = "[{'BookTitle':'stevy en anglais','BookIsbn':,'PageIndex':3,'DateBeginning':'23/12/2022 23:11:58','DateLastReading':'23/12/2022 23:12:05'}]";
@@ -69,6 +70,21 @@ public class JsonManagerTests
         Assert.That(new FileInfo(_directoryPath + _separator + _jsonFieTest).Length > 0, Is.EqualTo(false));
         
         File.Delete(_directoryPath + _separator + _jsonFieTest);
+    }
+    
+    //si un fichier de type non json est passé en paramètre, une exception est catch et le fichier est recréé mais vide en json cette fois
+    [Test]
+    public void JsonNotJson()
+    {
+        ISessionRepository sessionRepository = new SessionRepository(_jsonNotJsonTest);
+        Assert.That(File.Exists(_directoryPath + _separator + _jsonNotJsonTest), Is.EqualTo(false));
+
+        sessionRepository.LoadSessions();
+         
+        Assert.That(File.Exists(_directoryPath + _separator + _jsonFieTest), Is.EqualTo(true));
+         
+        File.Delete(_directoryPath + _separator + _jsonFieTest);
+        File.Delete(_directoryPath + _separator + _jsonNotJsonTest);
     }
     
     private void writeToFile(string fileName, string content)

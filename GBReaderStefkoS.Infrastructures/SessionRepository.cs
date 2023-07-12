@@ -1,3 +1,4 @@
+using System.Collections;
 using GBReaderStefkoS.Domains;
 using GBReaderStefkoS.Infrastructures.Dto;
 using GBReaderStefkoS.Repositories;
@@ -56,17 +57,17 @@ namespace GBReaderStefkoS.Infrastructures
             return allSessions;
         } 
         
-        public void SaveOrUpdateSession(string bookTitle, string bookIsbn, int pageIndex, string dateTime)
+        public void SaveOrUpdateSession(string bookTitle, string bookIsbn, int pageIndex, string dateTime, IList<int> pagesReaded)
         {
             var allSessions = LoadSessions();
             var sessionExist = SessionExist(allSessions, bookIsbn);
             if (sessionExist)
             {
-                UpdateSession(allSessions, bookIsbn, pageIndex, dateTime);
+                UpdateSession(allSessions, bookIsbn, pageIndex, dateTime, pagesReaded);
             }
             else
             {
-                SaveSession(allSessions, bookTitle, bookIsbn, pageIndex, dateTime);
+                SaveSession(allSessions, bookTitle, bookIsbn, pageIndex, dateTime, pagesReaded);
             }
         }
         
@@ -82,10 +83,17 @@ namespace GBReaderStefkoS.Infrastructures
             return session?.PageIndex ?? 1;
         }
         
-        private void SaveSession(IList<ReadingSession> allSessions, string bookTitle, string bookIsbn, int pageIndex, string dateTime)
+        public IList<int> GetPagesReaded(string bookIsbn)
+        {
+            var allSessions = LoadSessions()?? new List<ReadingSession>();
+            var session = allSessions.FirstOrDefault(s => s.BookIsbn == bookIsbn);
+            return session?.PagesReaded ?? new List<int>();
+        }
+        
+        private void SaveSession(IList<ReadingSession> allSessions, string bookTitle, string bookIsbn, int pageIndex, string dateTime, IList<int> pagesReaded)
         {
             var allSessionsDto = new Mapper().ListEntityToListDto(allSessions);
-            var newSessionDto = new ReadingSessionDto(bookTitle, bookIsbn, pageIndex, dateTime, dateTime);
+            var newSessionDto = new ReadingSessionDto(bookTitle, bookIsbn, pageIndex, dateTime, dateTime, pagesReaded);
             allSessionsDto.Add(newSessionDto);
             
             try
@@ -107,11 +115,12 @@ namespace GBReaderStefkoS.Infrastructures
             }
         }
         
-        private void UpdateSession(IList<ReadingSession> allSessions, string bookIsbn, int pageIndex, string dateTime)
+        private void UpdateSession(IList<ReadingSession> allSessions, string bookIsbn, int pageIndex, string dateTime, IList<int> pagesReaded)
         {
             var session = allSessions.First(s => s.BookIsbn == bookIsbn);
             session.PageIndex = pageIndex;
             session.DateLastReading = dateTime;
+            session.PagesReaded = pagesReaded;
             
             try
             {

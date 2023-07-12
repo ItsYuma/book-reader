@@ -22,6 +22,11 @@ namespace GBReaderStefkoS.Avalonia.Views
             ChoiceList.Children.Clear();
             EndOfStory.IsVisible = false;
             
+            if(pageIndex > 1)
+                GoToPreviousPageButton.IsVisible = true;
+            else
+                GoToPreviousPageButton.IsVisible = false;
+            
             BookTitle.Text = bookTitle;
             NbPages.Text = "Nombre de pages : " + $"{nbPages}";
             IndexPage.Text = "Page numéro : " + $"{pageIndex}";
@@ -62,7 +67,13 @@ namespace GBReaderStefkoS.Avalonia.Views
             QuitRequested?.Invoke(this, EventArgs.Empty);
         }
         
+        private void GoToPreviousPage(object? sender, RoutedEventArgs e)
+        {
+            GoToPreviousPageRequested?.Invoke(this, new PreviousPageEventArg(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")));
+        }
+        
         public event EventHandler<SaveReadingEventArgs> SwitchPageAndSaveRequested;
+        public event EventHandler<PreviousPageEventArg> GoToPreviousPageRequested;
         public event EventHandler<EventArgs> RestartRequested;
         public event EventHandler<EventArgs> QuitRequested;
         

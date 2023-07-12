@@ -17,6 +17,7 @@
             <TextBlock>Vous êtes arrivé à la fin du livre</TextBlock>
             <Button Click="RestartReading">Reprendre la lecture</Button>
         </StackPanel>
+        <Button x:Name="GoToPreviousPageButton" HorizontalAlignment="Left" Click="GoToPreviousPage">Retourner à la page précédente</Button>
         <TextBlock x:Name="Error"></TextBlock>
     </StackPanel>
 </UserControl>

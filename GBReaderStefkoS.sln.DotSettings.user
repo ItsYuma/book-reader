@@ -4,5 +4,6 @@
     &lt;TestId&gt;NUnit3x::C5EFBD25-E693-4E86-A32C-332C0070D009::net6.0::GBReaderStefkoS.InfrastucturesTests.JsonManagerTests.JsonNotExist&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::C5EFBD25-E693-4E86-A32C-332C0070D009::net6.0::GBReaderStefkoS.InfrastucturesTests.JsonManagerTests.JsonArgReadingSessionMissing&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::C5EFBD25-E693-4E86-A32C-332C0070D009::net6.0::GBReaderStefkoS.InfrastucturesTests.JsonManagerTests.JsonNotWellFormated&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::C5EFBD25-E693-4E86-A32C-332C0070D009::net6.0::GBReaderStefkoS.InfrastucturesTests.JsonManagerTests.JsonNotJson&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

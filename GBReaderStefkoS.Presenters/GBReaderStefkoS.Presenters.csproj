@@ -10,7 +10,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\GBReaderStefkoS.Domains\GBReaderStefkoS.Domains.csproj" />
-      <ProjectReference Include="..\GBReaderStefkoS.Infrastructures\GBReaderStefkoS.Infrastructures.csproj" />
       <ProjectReference Include="..\GBReaderStefkoS.Repositories\GBReaderStefkoS.Repositories.csproj" />
     </ItemGroup>
 
