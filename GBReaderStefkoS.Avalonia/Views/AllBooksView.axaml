@@ -9,8 +9,11 @@
         <TextBox x:Name="Search" Watermark="Rechercher" Width="300" Margin="5" KeyDown="InputElement_OnKeyDown" />
         <Button Click="ShowStats">Statistiques</Button>
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" >
-            <StackPanel x:Name="BookList">
-            </StackPanel>
+            <ScrollViewer Height="400" VerticalScrollBarVisibility="Visible">
+                <StackPanel x:Name="BookList">
+                </StackPanel>
+            </ScrollViewer>
+            
             <Border BorderBrush="Black" BorderThickness="2"
                     CornerRadius="3"
                     Padding="4"

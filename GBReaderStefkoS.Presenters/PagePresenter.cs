@@ -50,15 +50,15 @@ namespace GBReaderStefkoS.Presenters
 
             if (pageIndex == 1)
             {
-                Console.WriteLine("page 1 add :" +pageIndex);
+                //Console.WriteLine("page 1 add :" +pageIndex);
                 _pagesReaded.Push(pageIndex);
             }
 
             for(var i = 0; i < _pagesReaded.Count; i++)
             {
-                Console.WriteLine("page readed beg :" + _pagesReaded.ElementAt(i));
+                //Console.WriteLine("page readed beg :" + _pagesReaded.ElementAt(i));
             }
-            Console.WriteLine("----------");
+            //Console.WriteLine("----------");
             GoToPage(pageIndex);
         }
         
@@ -73,6 +73,7 @@ namespace GBReaderStefkoS.Presenters
         private void GoToFirstPage(object? sender, EventArgs arg)
         {
             _pagesReaded = new Stack<int>();
+            _pagesReaded.Push(1);
             GoToPage(1);  
         } 
 
@@ -80,18 +81,18 @@ namespace GBReaderStefkoS.Presenters
         {
             var page = _actualBook.Pages[args.PageIndex - 1];
             _pagesReaded.Push(args.PageIndex);
-            
-            Console.WriteLine("page switch et add :" + args.PageIndex);
-            for(var i = 0; i < _pagesReaded.Count; i++)
+
+            //Console.WriteLine("page switch et add :" + args.PageIndex);
+            /*for(var i = 0; i < _pagesReaded.Count; i++)
             {
                 Console.WriteLine("page readed  swith:" + _pagesReaded.ElementAt(i));
             }
-            Console.WriteLine("----------");
+            Console.WriteLine("----------");*/
             
             if (args.PageIndex == 1 || !_actualBook.PageHaveChoice(args.PageIndex))
             {
                 RemoveSession();
-                _pagesReaded = new Stack<int>();
+                if(args.PageIndex == 1) _pagesReaded = new Stack<int>();
             }
             else
             {
@@ -106,14 +107,14 @@ namespace GBReaderStefkoS.Presenters
             
             _pagesReaded.Pop();
             var pageIndex = _pagesReaded.Peek();
-            Console.WriteLine("page go back :" + pageIndex);
+            //Console.WriteLine("page go back :" + pageIndex);
             
             //affiche chaque itme de page readed
             for(var i = 0; i < _pagesReaded.Count; i++)
             {
-                Console.WriteLine("page readed previous :" + _pagesReaded.ElementAt(i));
+               // Console.WriteLine("page readed previous :" + _pagesReaded.ElementAt(i));
             }
-            Console.WriteLine("----------");
+            //Console.WriteLine("----------");
 
             if (pageIndex == 1 || !_actualBook.PageHaveChoice(pageIndex))
             {
@@ -155,7 +156,7 @@ namespace GBReaderStefkoS.Presenters
         {
             for(var i = 0; i < _pagesReaded.Count; i++)
             {
-                Console.WriteLine("page readed add to db :" + _pagesReaded.ElementAt(i));
+               // Console.WriteLine("page readed add to db :" + _pagesReaded.ElementAt(i));
             }
             _sessionRepository.SaveOrUpdateSession(_actualBook.Title, _actualBook.Isbn, pageIndex, dateTime, _pagesReaded.ToList());
         }
