@@ -16,8 +16,7 @@ namespace GBReaderStefkoS.Infrastructures
         {
             _factory = factory;
         }
-
-        //public void Dispose() => _connection.Dispose();
+        
         
         //crée une methode qui charge les livres de la base de données
         public IEnumerable<Book>? GetBooks()

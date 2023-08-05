@@ -34,7 +34,6 @@ namespace GBReaderStefkoS.Presenters
             {
                 _allBooks = _storageRepository.GetBooks();
                 
-                //_allBooks = dbManager.GetBooks();
                 if (_allBooks == null || _allBooks.Count() == 0)
                 {
                     _view.ShowError("Auncun livre n'est publié");
@@ -45,10 +44,6 @@ namespace GBReaderStefkoS.Presenters
                     _view.addBookToView(book.Author.ToString(), book.Title, book.Resume, book.Isbn);
                 }
                 
-                /*using (IDbManager dbManager = new DbManager(_factory.GetConnection()))
-                {
-                    
-                }*/
             }
             catch (StorageException e)
             {

@@ -36,8 +36,6 @@ namespace GBReaderStefkoS.Infrastructures
                         string json = reader.ReadToEnd();
                         var allSessionsDto = JsonConvert.DeserializeObject<List<ReadingSessionDto>>(json);
                         allSessions = new Mapper().ListDtoToListEntity(allSessionsDto);
-                        // verifie que les sessions n'ont aucun attribut null
-                        //allSessions = allSessions.Select(session => session.BookIsbn != null && session.DateBeginning != null && session.DateLastReading != null ? session : throw new JsonException()).ToList();
                     }
                 }
             }

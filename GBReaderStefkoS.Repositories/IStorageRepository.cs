@@ -3,7 +3,7 @@ using GBReaderStefkoS.Domains;
 namespace GBReaderStefkoS.Repositories
 {
     /**
-     * Interface for the DbManager
+     * Interface for the repository
      */
     public interface IStorageRepository
     {

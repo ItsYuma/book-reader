@@ -4,19 +4,23 @@ using GBReaderStefkoS.Repositories;
 
 namespace GBReaderStefkoS.Presenters
 {
+    /**
+     * Presenter for the stats view
+     */
     public class StatsPresenter
     {
         private readonly IStatsView _view;
         private readonly ISwitchContent _router;
         private readonly ISessionRepository _sessionRepository;
         
+        /**
+         * Constructor
+         */
         public StatsPresenter(IStatsView view, ISwitchContent router, ISessionRepository sessionRepository, AllBooksPresenter allBooksPresenter)
         {
             _view = view;
             _router = router;
             _sessionRepository = sessionRepository;
-            
-            //SetDataToView();
             
             _view.QuitRequested += GoToAllBooksView;
             allBooksPresenter.GoToStats += SetDataToView;

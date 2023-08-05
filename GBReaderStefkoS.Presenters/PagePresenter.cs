@@ -50,21 +50,14 @@ namespace GBReaderStefkoS.Presenters
 
             if (pageIndex == 1)
             {
-                //Console.WriteLine("page 1 add :" +pageIndex);
                 _pagesReaded.Push(pageIndex);
             }
-
-            for(var i = 0; i < _pagesReaded.Count; i++)
-            {
-                //Console.WriteLine("page readed beg :" + _pagesReaded.ElementAt(i));
-            }
-            //Console.WriteLine("----------");
+            
             GoToPage(pageIndex);
         }
         
         private void GoToPage(int index)
         {
-            //_actualBook = arg.Book;
             var page = _actualBook.Pages[index - 1];
             
             SetDataToPage(page);
@@ -82,13 +75,6 @@ namespace GBReaderStefkoS.Presenters
             var page = _actualBook.Pages[args.PageIndex - 1];
             _pagesReaded.Push(args.PageIndex);
 
-            //Console.WriteLine("page switch et add :" + args.PageIndex);
-            /*for(var i = 0; i < _pagesReaded.Count; i++)
-            {
-                Console.WriteLine("page readed  swith:" + _pagesReaded.ElementAt(i));
-            }
-            Console.WriteLine("----------");*/
-            
             if (args.PageIndex == 1 || !_actualBook.PageHaveChoice(args.PageIndex))
             {
                 RemoveSession();
@@ -107,19 +93,10 @@ namespace GBReaderStefkoS.Presenters
             
             _pagesReaded.Pop();
             var pageIndex = _pagesReaded.Peek();
-            //Console.WriteLine("page go back :" + pageIndex);
-            
-            //affiche chaque itme de page readed
-            for(var i = 0; i < _pagesReaded.Count; i++)
-            {
-               // Console.WriteLine("page readed previous :" + _pagesReaded.ElementAt(i));
-            }
-            //Console.WriteLine("----------");
 
             if (pageIndex == 1 || !_actualBook.PageHaveChoice(pageIndex))
             {
                 RemoveSession();
-                //_pagesReaded = new Stack<int>();
             }
             else
             {
@@ -154,10 +131,6 @@ namespace GBReaderStefkoS.Presenters
 
         private void SaveSession(int pageIndex, string dateTime)
         {
-            for(var i = 0; i < _pagesReaded.Count; i++)
-            {
-               // Console.WriteLine("page readed add to db :" + _pagesReaded.ElementAt(i));
-            }
             _sessionRepository.SaveOrUpdateSession(_actualBook.Title, _actualBook.Isbn, pageIndex, dateTime, _pagesReaded.ToList());
         }
 
